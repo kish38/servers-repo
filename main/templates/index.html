@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -19,7 +20,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
     <style>
         .card-title{
             cursor: pointer;
@@ -217,7 +218,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_1.svg' %}"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -229,7 +230,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_2.svg' %}"
                                             alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
@@ -241,7 +242,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_3.svg' %}"
                                             alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
@@ -273,9 +274,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nithin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user}}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="{% static 'img/undraw_profile.svg' %}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -324,7 +325,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                 # TYpes</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">333</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{types_count}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-server fa-2x text-gray-300"></i>
@@ -342,7 +343,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 # Servers</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">213</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{servers}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-server fa-2x text-gray-300"></i>
@@ -360,7 +361,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 # Vms</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">541</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{vms}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-desktop fa-2x text-gray-300"></i>
@@ -601,28 +602,28 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
     <script>
         $(".card-title").on('click', function(){
             window.location.href = "server.html"
