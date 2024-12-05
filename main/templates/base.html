@@ -71,7 +71,7 @@
                 <a class="nav-link collapsed" href="/" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Types</span>
+                    <span>Server Types</span>
                 </a>
                 
             </li>
@@ -353,6 +353,15 @@
     </div>
 </div>
 
+<div class="modal fade" id="info_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="info_modal_content">
+            
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -362,6 +371,15 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+<script>
+   function load_server(sid){
+      $("#info_modal_content").html(
+        $("#table_"+sid).html()
+      );
+      $("#info_modal").modal();
+   } 
+</script>
 
 {% block java_scripts %}
 {% endblock %}
