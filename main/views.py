@@ -102,6 +102,17 @@ def vms_view(request):
     return render(request, "vms.html", {"vms": vms})
 
 
+def search_view(request):
+    if "key" not in request.GET:
+        return redirect("/")
+    key = request.GET['key'].strip()
+    return render(request, 'search.html', {
+        'servers': Server.objects.filter(name__contains=key),
+        'vms': Vm.objects.filter(name__contains=key),
+        'key': key
+    })
+
+
 def import_view(request):
     if request.method == "POST":
         sheets = pd.ExcelFile(request.FILES["excel_file"]).sheet_names

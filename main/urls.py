@@ -6,6 +6,7 @@ from main.views import (
     servers_view,
     vms_view,
     import_view,
+    search_view
 )
 
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path("servers", servers_view),
     path("vms", vms_view),
     path("import", import_view),
+    path("search", search_view)
 ]
