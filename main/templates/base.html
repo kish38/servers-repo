@@ -362,6 +362,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="delete_modal_content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete <span id="delete_name"></span>?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Deleting this resource will also delete releated resources</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="/delete" id="delete_link">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -373,6 +393,17 @@
 <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
 <script>
+
+    function delete_resource(type, id, name){
+        $("#delete_name").html(name);
+        if (type=='vm'){
+            $("#delete_link").attr('href', '/delete-vm/'+id);
+        }
+        else{
+            $("#delete_link").attr('href', '/delete-server/'+id);
+        }
+        $("#delete_modal").modal();
+    }
    function load_server(sid){
       $("#info_modal_content").html(
         $("#table_"+sid).html()

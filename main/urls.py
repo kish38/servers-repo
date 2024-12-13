@@ -6,7 +6,9 @@ from main.views import (
     servers_view,
     vms_view,
     import_view,
-    search_view
+    search_view,
+    delete_server,
+    delete_vm,
 )
 
 
@@ -17,5 +19,7 @@ urlpatterns = [
     path("servers", servers_view),
     path("vms", vms_view),
     path("import", import_view),
-    path("search", search_view)
+    path("search", search_view),
+    path("delete-server/<int:id>", delete_server),
+    path("delete-vm/<int:id>", delete_vm),
 ]

@@ -102,6 +102,30 @@ def vms_view(request):
     return render(request, "vms.html", {"vms": vms})
 
 
+def delete_server(request, id):
+    server = Server.objects.filter(id=id).first()
+    if server:
+        stype = server.server_type
+        stype.servers -= 1
+        stype.vms -= Vm.objects.filter(server=server).count()
+        server.delete()
+        stype.save()
+
+        messages.success(request, f"Deleted {server.name}")
+    return redirect("/")
+
+
+def delete_vm(request, id):
+    server = Vm.objects.filter(id=id).first()
+    if server:
+        stype = server.server.server_type
+        stype.vms -= 1
+        server.delete()
+        stype.save()
+        messages.success(request, f"Deleted {server.name}")
+    return redirect("/")
+
+
 def search_view(request):
     if "key" not in request.GET:
         return redirect("/")
