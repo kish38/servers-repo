@@ -126,6 +126,37 @@ def delete_vm(request, id):
     return redirect("/")
 
 
+def add_server_view(request):
+    if request.method == 'POST':
+        dct = {}
+        for k in request.POST:
+            dct[k] = request.POST[k]
+        stype = ServerType.objects.get(id=dct['stype'])
+        name = dct['hardware_name']
+        del dct['csrfmiddlewaretoken']
+        del dct['stype']
+        server = Server(**dct)
+        server.name = name
+        server.server_type = stype
+        server.save()
+        return redirect("/servers")
+    stypes = ServerType.objects.all()
+    return render(request, 'addserver.html', {'stypes': stypes})
+
+
+def add_vm_view(request):
+    if request.method == 'POST':
+        dct = {}
+        for k in request.POST:
+            dct[k] = request.POST[k]
+        server = Server.objects.get(id=dct['server'])
+        dct['server'] = server
+        del dct['csrfmiddlewaretoken']
+        vm = Vm(**dct)
+        vm.save()
+        return redirect("/vms")
+    return render(request, 'addvms.html', {'servers': Server.objects.all()})
+
 def search_view(request):
     if "key" not in request.GET:
         return redirect("/")

@@ -9,6 +9,8 @@ from main.views import (
     search_view,
     delete_server,
     delete_vm,
+    add_server_view,
+    add_vm_view
 )
 
 
@@ -22,4 +24,6 @@ urlpatterns = [
     path("search", search_view),
     path("delete-server/<int:id>", delete_server),
     path("delete-vm/<int:id>", delete_vm),
+    path("add-server", add_server_view),
+    path("add-vm", add_vm_view),
 ]
