@@ -29,6 +29,8 @@
                                     <div class="row">
 
                                         <div class="col-6">
+                                            <input type="hidden" value="{{data}}" id="server_data">
+                                            <input type="hidden" id="server_id" value="{{server_id}}">
                                             <div class="form-group ">
                                                 <label for="hardware-name">Server Type:</label>
                                                 <select class="form-control" name="stype">
@@ -157,3 +159,19 @@
                 </div>
                 <!-- /.container-fluid -->
     {% endblock %}
+
+{% block java_scripts %}
+<script>
+    $(document).ready(function(){
+        sid = $("#server_id").val();
+        if (sid != null && sid != ""){
+            data = JSON.parse($("#server_data").val());
+            console.log(data);
+            $.each(data, function(k,v){
+                $(`input[name=${k}]`).val(v);
+            });
+            $("select[name=stype]").val(data['stype']);
+        }
+    });
+</script>
+{% endblock %}

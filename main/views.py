@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate
 from main.models import ServerType, Server, Vm
 import pandas as pd
+import json
 
 
 server_columns = {
@@ -55,8 +56,12 @@ def index_view(request):
     server_count = 0
     vms_count = 0
     for type1 in types:
-        server_count += type1.servers
-        vms_count += type1.vms
+        scount = Server.objects.filter(server_type=type1).count()
+        vcount = Vm.objects.filter(server__server_type=type1).count()
+        server_count += scount
+        vms_count += vcount
+        type1.servers = scount
+        type1.vms = vcount
 
     return render(
         request,
@@ -156,6 +161,45 @@ def add_vm_view(request):
         vm.save()
         return redirect("/vms")
     return render(request, 'addvms.html', {'servers': Server.objects.all()})
+
+
+def edit_server_view(request, id):
+    server = Server.objects.get(id=id)
+    cols = server_columns.values()
+    server_dct = {}
+    for col in cols:
+        server_dct[col] = getattr(server, col)
+    server_dct['stype'] = server.server_type.id
+    if request.method == 'POST':
+        if request.POST['stype'] != server_dct['stype']:
+            server.server_type = ServerType.objects.get(id=request.POST['stype'])
+
+        for k in request.POST:
+            if k not in ['csrfmiddlewaretoken', 'stype']:
+                setattr(server, k, request.POST[k])
+        server.save()
+        return redirect(f"/edit-server/{id}")
+    return render(request, 'addserver.html', {'server_id': id, 'stypes': ServerType.objects.all(), 'data': json.dumps(server_dct)})
+
+
+def edit_vm_view(request, id):
+    server = Vm.objects.get(id=id)
+    cols = vm_columns.values()
+    server_dct = {}
+    for col in cols:
+        server_dct[col] = getattr(server, col)
+    server_dct['server'] = server.server.id
+    if request.method == 'POST':
+        if request.POST['server'] != server_dct['server']:
+            server.server = Server.objects.get(id=request.POST['server'])
+
+        for k in request.POST:
+            if k not in ['csrfmiddlewaretoken', 'server']:
+                setattr(server, k, request.POST[k])
+        server.save()
+        return redirect(f"/edit-vm/{id}")
+    return render(request, 'addvms.html', {'vm_id': id, 'servers': Server.objects.all(), 'data': json.dumps(server_dct)})
+
 
 def search_view(request):
     if "key" not in request.GET:

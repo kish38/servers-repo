@@ -10,7 +10,9 @@ from main.views import (
     delete_server,
     delete_vm,
     add_server_view,
-    add_vm_view
+    add_vm_view,
+    edit_server_view,
+    edit_vm_view
 )
 
 
@@ -26,4 +28,6 @@ urlpatterns = [
     path("delete-vm/<int:id>", delete_vm),
     path("add-server", add_server_view),
     path("add-vm", add_vm_view),
+    path("edit-server/<int:id>", edit_server_view),
+    path("edit-vm/<int:id>", edit_vm_view)
 ]

@@ -28,6 +28,8 @@
                                     <div class="row">
 
                                         <div class="col-6">
+                                            <input type="hidden" value="{{data}}" id="vm_data">
+                                            <input type="hidden" id="vm_id" value="{{vm_id}}">
                                             <div class="form-group ">
                                                 <label for="hardware-name">Server:</label>
                                                 <select class="form-control" name="server">
@@ -124,3 +126,20 @@
                     </div>
                 </div>
     {% endblock %}
+
+
+{% block java_scripts %}
+<script>
+    $(document).ready(function(){
+        sid = $("#vm_id").val();
+        if (sid != null && sid != ""){
+            data = JSON.parse($("#vm_data").val());
+            console.log(data);
+            $.each(data, function(k,v){
+                $(`input[name=${k}]`).val(v);
+            });
+            $("select[name=server]").val(data['server']);
+        }
+    });
+</script>
+{% endblock %}
