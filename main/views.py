@@ -7,6 +7,9 @@ from django.contrib.auth import authenticate
 from main.models import ServerType, Server, Vm
 import pandas as pd
 import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from copy import deepcopy
 
 
 server_columns = {
@@ -247,3 +250,66 @@ def import_view(request):
     else:
         messages.error(request, "Method not allowerd")
     return redirect("/")
+
+
+@csrf_exempt
+def add_vm_req(request):
+    if request.method == "GET":
+        return JsonResponse({"error": "GET /create-vm not found"})
+    data = json.loads(request.body)
+    vm = Vm.objects.filter(name=data['VM Name']).first()
+    if 'server_name' in data:
+        server = Server.objects.filter(name=data.get('server_name', '')).first()
+        if not server:
+            return JsonResponse({"error": "Invalid server name"})
+    elif vm:
+        server = vm.server
+    else:
+        server = Server.objects.first()
+    vm_dct = {key: '' for key in vm_columns}
+    vm_dct['server'] = server
+    vm_dct['name'] = data['VM Name']
+    vm_dct['vcpus'] = data['CPU']
+    vm_dct['memory'] = data['RAM']
+    vm_dct['guest_os'] = data['OS']
+    if not vm:
+        vm = Vm.objects.create(**vm_dct)
+    else:
+        Vm.objects.filter(pk=vm.pk).update(**vm_dct)
+    return JsonResponse({"success": "VM Created"})
+
+
+@csrf_exempt
+def add_server_req(request):
+    if request.method == "GET":
+        return JsonResponse({"error": "GET /create-server not found"})
+    data = json.loads(request.body)
+    server = Server.objects.filter(name=data['host']).first()
+    # if 'server_name' in data:
+    #     server = Server.objects.filter(name=data.get('server_name', '')).first()
+    #     if not server:
+    #         return JsonResponse({"error": "Invalid server name"})
+    # elif vm:
+    #     server = vm.server
+    # else:
+    #     server = Server.objects.first()
+    server_dct = {key: '' for key in server_columns}
+    server_dct['cpu_model'] = data['server_bios']['CPU Model']
+    server_dct['memory'] = data['hardware']['Total RAM']
+    server_dct['os_version'] = data['operating_system']['OS']
+    server_dct['ip_address'] = data['network']['IPv4 Address']
+    server_dct['idrac_ip'] = data['network']['iDRAC/iLO IP Address']
+    server_dct['switch_info'] = json.dumps({'switches': data['lldp_switches']})
+
+    server_dct['mac_address'] = data['server_bios']['Server Serial Number']
+    server_dct['firmware_version'] = ['operating_system']['Kernel Version']
+    server_dct['network_info'] = json.dumps(data['network'])
+
+    server_dct['server_type'] = ServerType.objects.get(name='Arcadian')
+
+
+    if not server:
+        server = Server.objects.create(**server_dct)
+    else:
+        Server.objects.filter(pk=server.pk).update(**server_dct)
+    return JsonResponse({"success": "Server Created"})
