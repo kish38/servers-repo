@@ -40,12 +40,12 @@
                                     <p style="border-bottom: 1px inset "></p>
                                     <div id="table_{{server.id}}" style="display: none;">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Details of {{server.name}}</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Details of <strong>{{server.name}}</strong></h5>
                                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body" style="max-height:400px; overflow-y: scroll;">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -68,9 +68,28 @@
                                                 <tr>
                                                     <td>OS Version</td><td>{{server.os_version}}</td>
                                                 </tr>
-                                                <tr>
+                                                <tr style="border-bottom: 2px solid black;">
                                                     <td>IP Address</td><td>{{server.ip_address}}</td>
                                                 </tr>
+                                                
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div style="margin-left: auto;margin-right: auto;">
+                                                        <strong style="margin-left:45%">SwitchInfo</strong>
+                                                        <table style="margin-left:auto;margin-right: auto;">
+                                                            <tr><th>switch</th><th>port</th><th>interface</th></tr>
+                                                            {% for switch in server.switch_info.switches.lldp_switches %}
+                                                            <tr>
+                                                                <td>{{switch.switch_name}}</td>
+                                                                <td>{{switch.port}}</td>
+                                                                <td>{{switch.interface}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </table>
+                                                    </div>
+                                                    </td>
+                                                </tr>
+                                                
                                             </table>
                                         </div>
                                         <div class="modal-footer">

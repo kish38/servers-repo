@@ -41,7 +41,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-desktop"></i>
                 </div>
@@ -94,13 +94,11 @@
                 
             </li>
 
-
-            <div class="sidebar-card d-none d-lg-flex" style="margin-top:50%">
-                <p class="text-center mb-2"><strong>&copy;</strong> All rights reserved under</p>
+            <div class="sidebar-card d-none d-lg-flex" style="margin-top:90%">
+                <p class="text-center mb-2"><strong>&copy;</strong> Developed and maintained by Arcadian</p>
 
                 <a href="https://www.att.com/" target="_blank"><img src="/static/img/logo.png" style="height:50px;border-radius: 50px;"></a>
             </div>
-            
 
 
         </ul>
@@ -363,12 +361,13 @@
 
 <div class="modal fade" id="info_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" id="info_modal_content">
             
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -389,7 +388,6 @@
     </div>
 </div>
 
-
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -401,7 +399,6 @@
 <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
 <script>
-
     function delete_resource(type, id, name){
         $("#delete_name").html(name);
         if (type=='vm'){
@@ -412,6 +409,7 @@
         }
         $("#delete_modal").modal();
     }
+
    function load_server(sid){
       $("#info_modal_content").html(
         $("#table_"+sid).html()

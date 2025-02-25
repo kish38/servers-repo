@@ -31,7 +31,7 @@ class Server(models.Model):
     mac_address = models.CharField(max_length=255)
     routing_tables = models.CharField(max_length=255)
     dns_dhp = models.CharField(max_length=255)
-    switch_info = models.CharField(max_length=255)
+    switch_info = models.JSONField(max_length=255)
     idrac_ip = models.CharField(max_length=255)
     pxe_address = models.CharField(max_length=255)
     domain = models.CharField(max_length=255)
