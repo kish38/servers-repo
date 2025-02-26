@@ -10,7 +10,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">VMs for server</h1>
+                        <h1 class="h3 mb-0 font-weight-bold" style="color: #000000;">VMs for server</h1>
                         <a href="/add-vm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> Add VMs</a>
                     </div>
                     <div class="row">
@@ -19,12 +19,12 @@
                         <div class="col-md-3" style="padding-top:1em;">
                             <div class="card server-card shadow">
                                 <div class="card-body " >
-                                    <h5 class=" mt-3"><i class="fas fa-desktop server-icon"></i> {{vm.name}}</h5>
+                                    <h5 class=" mt-3" style="color: #000000;"><i class="fas fa-desktop server-icon"></i> {{vm.name}}</h5>
                                     <p style="border-bottom: 1px inset;"></p>
-                                    <p class="card-text"><strong>MOTS ID:</strong> {{vm.mots_id}}</p>
-                                    <p class="card-text"><strong>Status:</strong> <span class="text-success"><i class="fas fa-check-circle status-icon"></i> Online</span></p>
-                                    <p class="card-text"><strong>CPU Usage:</strong> {{vm.vcpu_utilisation}}</p>
-                                    <p class="card-text"><strong>Memory Usage:</strong> {{vm.memory_usage}}</p>
+                                    <p class="card-text"><strong style="color: #000000;">MOTS ID:</strong> {{vm.mots_id}}</p>
+                                    <p class="card-text"><strong style="color: #000000;">Status:</strong> <span class="text-success"><i class="fas fa-check-circle status-icon"></i> Online</span></p>
+                                    <p class="card-text"><strong style="color: #000000;">CPU Usage:</strong> {{vm.vcpu_utilisation}}</p>
+                                    <p class="card-text"><strong style="color: #000000;">Memory Usage:</strong> {{vm.memory_usage}}</p>
                                     <p style="border-bottom: 1px inset;"></p>
 
                                     <div id="table_{{vm.id}}" style="display: none;">
