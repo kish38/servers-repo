@@ -23,6 +23,8 @@ class Server(models.Model):
     firmware_version = models.CharField(max_length=255)
     power_cooling = models.CharField(max_length=255)
     cpu_utilisation = models.CharField(max_length=255)
+    memory_usage = models.CharField(max_length=255)
+    nics = models.CharField(max_length=255)
     load_average = models.CharField(max_length=255)
     os_version = models.CharField(max_length=255)
 

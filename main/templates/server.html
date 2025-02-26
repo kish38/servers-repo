@@ -24,10 +24,108 @@
                         <a href="/add-server" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa-solid fa-plus"></i> Add Server</a>
                     </div>
                     <div class="row">
-                        {% for server in servers %}
+                        
                         <!-- Server 1 Card -->
-                        <div class="col-md-3" style="padding-top:1em;">
-                            <div class="card server-card shadow">
+                        <div class="col" style="padding-top:1em;">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>VMS</th>
+                                        <th>CPU Utilization</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for server in servers %}
+                                    <tr>
+                                        <td>
+                                            <a href="/vms?server={{server.id}}" style="color:#858796;text-decoration: underline;">{{server.name}}</a></td>
+                                        <td><span class="text-success"><i class="fas fa-check-circle status-icon"></i> UP</span></td>
+                                        <td>{{0}}</td>
+                                        <td>
+                                            <span style="float:right;">{{server.cpu_utilisation}}</span>
+                                            <div style="width: 50%; background-color: #e0e0e0; border-radius: 8px; padding: 2px;">
+                                            <div id="progress-bar" style="width: {{server.cpu_utilisation}}; background-color: #ad1545; height: 10px; border-radius: 5px;"></div>
+                                        </td>
+                                        <td>
+                                            <button href="#" class="btn btn-info btn-circle btn-sm" onclick="load_server('{{server.id}}')">
+                                                <i class="fas fa-info-circle"></i>
+                                            </button>
+                                            <a href="/edit-server/{{server.id}}" class="btn btn-primary btn-circle btn-sm">
+                                                <i class="fas fa-pen-to-square"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger btn-circle btn-sm" onclick="delete_resource('server', '{{server.id}}', '{{server.name}}')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% for server in servers %}
+                            <div id="table_{{server.id}}" style="display: none;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Details of <strong>{{server.name}}</strong></h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="max-height:400px; overflow-y: scroll;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                              <th scope="col">Property</th>
+                                              <th scope="col">Value</th>
+                                            </tr>
+                                          </thead>
+                                        <tr>
+                                            <td>Server Type</td><td>{{server.server_type}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hardware Name</td><td>{{server.hardware_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CPU Model</td><td>{{server.cpu_model}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Network Info</td><td>{{server.network_info}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>OS Version</td><td>{{server.os_version}}</td>
+                                        </tr>
+                                        <tr style="border-bottom: 2px solid black;">
+                                            <td>IP Address</td><td>{{server.ip_address}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td colspan="2">
+                                            <div style="margin-left: auto;margin-right: auto;">
+                                                <strong style="margin-left:45%">SwitchInfo</strong>
+                                                <table style="margin-left:auto;margin-right: auto;">
+                                                    <tr><th>switch</th><th>port</th><th>interface</th></tr>
+                                                    {% for switch in server.switch_info.switches.lldp_switches %}
+                                                    <tr>
+                                                        <td>{{switch.switch_name}}</td>
+                                                        <td>{{switch.port}}</td>
+                                                        <td>{{switch.interface}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- <div class="card server-card shadow">
                                 <div class="card-body  d-flex flex-column " >
                                     <a href="/vms?server={{server.id}}" style="color:#858796;">
                                         <h5 class=" mt-3" style="color: #000000;"><i class="fas fa-server server-icon " style="color: #000000;"></i> {{server.name}}</h5>
@@ -38,64 +136,7 @@
                                     <p class="card-text server-cpu" style="color: #000000;"><strong>CPU Usage:</strong> {{server.cpu_utilisation}}</p>
                                     <p class="card-text server-memory" style="color: #000000;"><strong>Memory Usage:</strong> {{server.storage}}</p>
                                     <p style="border-bottom: 1px inset "></p>
-                                    <div id="table_{{server.id}}" style="display: none;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Details of <strong>{{server.name}}</strong></h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="max-height:400px; overflow-y: scroll;">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                      <th scope="col">Property</th>
-                                                      <th scope="col">Value</th>
-                                                    </tr>
-                                                  </thead>
-                                                <tr>
-                                                    <td>Server Type</td><td>{{server.server_type}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Hardware Name</td><td>{{server.hardware_name}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CPU Model</td><td>{{server.cpu_model}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Network Info</td><td>{{server.network_info}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>OS Version</td><td>{{server.os_version}}</td>
-                                                </tr>
-                                                <tr style="border-bottom: 2px solid black;">
-                                                    <td>IP Address</td><td>{{server.ip_address}}</td>
-                                                </tr>
-                                                
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div style="margin-left: auto;margin-right: auto;">
-                                                        <strong style="margin-left:45%">SwitchInfo</strong>
-                                                        <table style="margin-left:auto;margin-right: auto;">
-                                                            <tr><th>switch</th><th>port</th><th>interface</th></tr>
-                                                            {% for switch in server.switch_info.switches.lldp_switches %}
-                                                            <tr>
-                                                                <td>{{switch.switch_name}}</td>
-                                                                <td>{{switch.port}}</td>
-                                                                <td>{{switch.interface}}</td>
-                                                            </tr>
-                                                            {% endfor %}
-                                                        </table>
-                                                    </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="d-flex justify-content-around col-12">
                                         <button href="#" class="btn btn-info btn-circle btn-sm" onclick="load_server('{{server.id}}')">
                                             <i class="fas fa-info-circle"></i>
@@ -108,15 +149,13 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        {% endfor %}
+                        
                     </div>
                 </div>
-                <h3>Progress: <span id="progress-text">{{ progress }}%</span></h3>
-                <div style="width: 100%; background-color: #e0e0e0; border-radius: 8px; padding: 3px;">
-                <div id="progress-bar" style="width: {{ progress }}%; background-color: #000000; height: 20px; border-radius: 5px;"></div>
-                </div>
+                
+                
 
     {% endblock %}
 

@@ -294,15 +294,18 @@ def add_server_req(request):
     # else:
     #     server = Server.objects.first()
     server_dct = {key: '' for key in server_columns}
-    server_dct['cpu_model'] = data['server_bios']['CPU Model']
-    server_dct['memory'] = data['hardware']['Total RAM']
-    server_dct['os_version'] = data['operating_system']['OS']
-    server_dct['ip_address'] = data['network']['IPv4 Address']
-    server_dct['idrac_ip'] = data['network']['iDRAC/iLO IP Address']
+    server_dct['cpu_model'] = data['server_bios'].get('CPU Model')
+    server_dct['memory'] = data['hardware'].get('Total RAM')
+    server_dct["cpu_utilisation"] = data['hardware'].get('CPU Average')
+    server_dct["memory_usage"] = data['hardware'].get('Memory Average')
+    server_dct["nics"] = data['hardware'].get('NICs')
+    server_dct['os_version'] = data['operating_system'].get('OS')
+    server_dct['ip_address'] = data['network'].get('IPv4 Address')
+    server_dct['idrac_ip'] = data['network'].get('iDRAC/iLO IP Address')
     server_dct['switch_info'] = json.dumps({'switches': data['lldp_switches']})
 
-    server_dct['mac_address'] = data['server_bios']['Server Serial Number']
-    server_dct['firmware_version'] = ['operating_system']['Kernel Version']
+    server_dct['mac_address'] = data['server_bios'].get('Server Serial Number')
+    server_dct['firmware_version'] = data['operating_system'].get('Kernel Version')
     server_dct['network_info'] = json.dumps(data['network'])
 
     server_dct['server_type'] = ServerType.objects.get(name='Arcadian')
