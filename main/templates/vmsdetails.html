@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <h1 class="h3 mb-0 font-weight-bold" style="color: #000000;">VM Details</h1>
+        <a href="/vms" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</a>
+    </div>
+
+    <div class="row">
+        <!-- Vm Card -->
+        <div class="col" style="padding-top:1em;">
+            <table class="table table-hover table-bordered">
+                <thead style="background-color: #c3d1ff;">
+                    <tr style="color:#000">
+                        <th>VM Name</th>
+                        <th>CPUs</th>
+                        <th>MEM</th>
+                        <th>OS Version</th>
+                        <th>IP Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ vms.name }}</td>
+                        <td>{{ vms.vcpus }}</td>
+                        <td>{{ vms.memory }}</td>
+                        <td>{{ vms.guest_os }}</td> <!-- Ensure this is the correct field -->
+                        <td>{{ vms.ip_address }}</td> <!-- Ensure this is the correct field -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-sm-flex align-items-center justify-content-between ">
+        <h1 class="h3 mb-0 font-weight-bold" style="color: #000000;">More Details</h1>
+    </div>
+
+    <div class="row">
+        <!-- Vm Card -->
+        <div class="col" style="padding-top:1em;">
+            <table class="table table-hover table-bordered">
+                <thead style="background-color: #c3d1ff;">
+                    <tr style="color:#000">
+                        <th>Disk Space</th>
+                        <th>Network</th>
+                        <th>Cpu Utilization</th>
+                        <th>MEM Usage</th>
+                        <th>Disk Io</th>
+                        <th>Load Avg</th>
+                        <th>IO Wait</th>
+                        <th>Swap Usage</th>
+                        <th>App Type</th>
+                        <th>Mots Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ vms.disk_space }}</td>
+                        <td>{{ vms.network_interface }}</td>
+                        <td>{{ vms.vcpu_utilisation }}</td>
+                        <td>{{ vms.memory_usage }}</td> 
+                        <td>{{ vms.disk_io }}</td> 
+                        <td>{{vms.load_average}}</td>
+                        <td>{{vms.io_wait}}</td>
+                        <td>{{vms.swap_usage}}</td>
+                        <td>{{vms.app_type}}</td>
+                        <td>{{vms.mots_id}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

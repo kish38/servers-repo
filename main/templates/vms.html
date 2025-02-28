@@ -37,9 +37,10 @@
                                         <td>{{vm.vcpus}}</td>
                                         <td>{{vm.memory}}</td>
                                         <td>
-                                            <button href="#" class="btn btn-info btn-circle btn-sm"  onclick="load_server('{{vm.id}}')">
+                                            <!-- <button href="#" class="btn btn-info btn-circle btn-sm"  onclick="load_server('{{vm.id}}')">
                                                 <i class="fas fa-info-circle"></i>
-                                            </button>
+                                            </button> -->
+                                            <a href="/vms-details/{{vm.id}}" class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>
                                             <a href="/edit-vm/{{vm.id}}" class="btn btn-warning btn-circle btn-sm">
                                                 <i class="fas fa-pen-to-square"></i>
                                             </a>

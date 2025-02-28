@@ -51,9 +51,12 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <button href="#" class="btn btn-info btn-circle btn-sm" onclick="load_server('{{server.id}}')">
+                                            <!-- <button href="#" class="btn btn-info btn-circle btn-sm" onclick="load_server('{{server.id}}')">
                                                 <i class="fas fa-info-circle"></i>
-                                            </button>
+                                            </button> -->
+                                            <a href="/server-details/{{server.id}}" class="btn btn-info btn-circle btn-sm">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
                                             <a href="/edit-server/{{server.id}}" class="btn btn-primary btn-circle btn-sm">
                                                 <i class="fas fa-pen-to-square"></i>
                                             </a>

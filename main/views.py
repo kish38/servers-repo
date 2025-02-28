@@ -316,3 +316,8 @@ def add_server_req(request):
     else:
         Server.objects.filter(pk=server.pk).update(**server_dct)
     return JsonResponse({"success": "Server Created"})
+
+
+def get_server_req(request, id):
+    server = Server.objects.get(id=id)
+    return render(request, 'serverdetails.html', {'server': server})
