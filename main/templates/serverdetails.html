@@ -2,74 +2,119 @@
 {% load static %}
 
 {% block page_content %}
-<div class="container-fluid">
+<style>
+    .custom-table th {
+        background-color: #c3d1ff;
+        color: #000;
+        width: 180px; /* Ensures a consistent width for headings */
+        text-align: left;
+        padding: 8px;
+    }
+    .custom-table td {
+        background-color: #f9f9f9;
+        color: #333;
+        padding: 8px;
+    }
+    .custom-table tr:nth-child(even) td {
+        background-color: #eef2ff; /* Alternating row color */
+    }
+    .custom-table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+</style>
+<div>
+<div class=" d-flex align-items-center justify-content-end px-5">
+    <a href="/servers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</a>
+</div>
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between ">
-        <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">Operating System</h4>
-        <a href="/servers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</a>
-    </div>
-
-    <div class="row">
-        <!-- Vm Card -->
-        <div class="col" style="padding-top:1em;">
-            <table class="table table-hover table-bordered">
-                <thead style="background-color: #c3d1ff;">
-                    <tr style="color:#000">
-                        <th>OS</th>
-                        <th>Kernel Version</th>
-                        <th>UPtime</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ server.os_version }}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="container-fluid d-flex align-items-start justify-content-between">
+    <div>
+        <div class="d-sm-flex align-items-center justify-content-between ">
+            <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">Server Hardware and Details</h4>
+        </div>
+    
+        <div class="row">
+            <!-- Vm Card -->
+            <div class="col" style="padding-top:1em;">
+                <table class="table table-md table-bordered custom-table  w-auto">
+                    <tbody>
+                        <tr >
+                            <th>Total CPUs</th>
+                            <td>{{ server.total_cpus }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Sockets</th>
+                            <td>{{ server.total_sockets }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cores per Socket</th>
+                            <td>{{ server.cores_per_socket }}</td>
+                        </tr>
+                        <tr>
+                            <th>Threads per Core</th>
+                            <td>{{ server.threads_per_core }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total RAM</th>
+                            <td>{{ server.total_ram }}</td>
+                        </tr>
+                        <tr>
+                            <th>NICs</th>
+                            <td>{{ server.nics }}</td>
+                        </tr>
+                        <tr>
+                            <th>CPU Average</th>
+                            <td>{{ server.cpu_average }}</td>
+                        </tr>
+                        <tr>
+                            <th>Memory Average</th>
+                            <td>{{ server.memory }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
         </div>
     </div>
-    <br />
 
-    <div class="d-sm-flex align-items-center justify-content-between ">
-        <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">Server Hardware and Details</h4>
-    </div>
-
-    <div class="row">
-        <!-- Vm Card -->
-        <div class="col" style="padding-top:1em;">
-            <table class="table table-hover table-bordered">
-                <thead style="background-color: #c3d1ff;">
-                    <tr style="color:#000">
-                        <th>Total CPUs</th>
-                        <th>Total Sockets</th>
-                        <th>Cores per Sockets</th>
-                        <th>Threads per Core </th>
-                        <th>Total Ram</th>
-                        <th>NICs</th>
-                        <th>CPU Avarage</th>
-                        <th>Memory Avarage </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{server.nics}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div>
+        <div class="d-sm-flex align-items-center justify-content-between ">
+            <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">Operating System</h4>
+        </div>
+    
+        <div class="row">
+            <!-- Vm Card -->
+            <div class="col" style="padding-top:1em;">
+                <table class="table table-md table-bordered custom-table w-auto">
+                    <tbody>
+                        <tr >
+                            <th>OS</th>
+                            <td>{{ server.os_version }}</td>
+                        </tr>
+                        <tr>
+                            <th>Kernel Version</th>
+                            <td>{{ server.kernel_version }}</td>
+                        </tr>
+                        <tr>
+                            <th>Uptime</th>
+                            <td>{{ server.uptime }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <br />
+   
 
+   
+    
+
+    <div>
+        
     <div class="d-sm-flex align-items-center justify-content-between ">
         <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">Server Hardware and BIOS</h4>
     </div>
@@ -77,65 +122,77 @@
     <div class="row">
         <!-- Vm Card -->
         <div class="col" style="padding-top:1em;">
-            <table class="table table-hover table-bordered">
-                <thead style="background-color: #c3d1ff;">
-                    <tr style="color:#000">
-                        <th>Vendor</th>
-                        <th>Model</th>
-                        <th>Cpu Series</th>
-                        <th>BIOS Version</th>
-                        <th>BIOS Release Date</th>
-                        <th>Serial Number</th>
-                        <th>ATT Patch Date</th>
-                        <th>Run Vms </th>
-                    </tr>
-                </thead>
+            <table class="table table-sm table-bordered custom-table  w-auto">
                 <tbody>
+                    <tr >
+                        <th >Vendor</th>
+                        <td>{{ server.vendor }}</td>
+                    </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td>{{ server.cpu_model }}</td>
-                        <td>{{ server.os_version }}</td>
-                        <td>{{ server.}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <th >Model</th>
+                        <td>{{ server.server_model }}</td>
+                    </tr>
+                    <tr>
+                        <th>CPU Series</th>
+                        <td>{{ server.cpu_series }}</td>
+                    </tr>
+                    <tr>
+                        <th>BIOS Version</th>
+                        <td>{{ server.bios_version }}</td>
+                    </tr>
+                    <tr>
+                        <th>BIOS Release Date</th>
+                        <td>{{ server.bios_release }}</td>
+                    </tr>
+                    <tr>
+                        <th>Serial Number</th>
+                        <td>{{ server.serial_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>ATT Patch level</th>
+                        <td>{{ server.att_patch_level }}</td>
+                    </tr>
+                    <tr>
+                        <th>Run VMs</th>
+                        <td>{{ server.running_vms }}</td>
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
-    <br />
-
+</div>
+<div>
     <div class="d-sm-flex align-items-center justify-content-between ">
         <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;"> LLDP Switch Information</h4>
     </div>
     <div class="row">
         <!-- Vm Card -->
         <div class="col" style="padding-top:1em;">
-            <table class="table table-hover table-bordered">
-                <thead style="background-color: #c3d1ff;">
-                    <tr style="color:#000">
-                        <th>switch</th>
-                        <th>port</th>
-                        <th>interface</th>
-                    </tr>
-                </thead>
-
+            <table class="table table-sm table-bordered custom-table  w-auto">
                 <tbody>
-                {% for switch in server.switch_info.switches.lldp_switches %}
-                <tr>
-                    <td>{{switch.switch_name}}</td>
-                    <td>{{switch.port}}</td>
-                    <td>{{switch.interface}}</td>
-                </tr>
-                {% endfor %}
+                    {% for switch in server.switch_info.switches.lldp_switches %}
+                    <tr>
+                        <th>Switch</th>
+                        <td>{{ switch.switch_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Port</th>
+                        <td>{{ switch.port }}</td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{ switch.interface }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            
         </div>
     </div>
-    <br />
-
+</div>
+    
+<div>
     <div class="d-sm-flex align-items-center justify-content-between ">
         <h4 class="h5 mb-0 font-weight-bold" style="color: #000000;">More Details</h4>
     </div>
@@ -143,51 +200,84 @@
     <div class="row">
         <!-- Vm Card -->
         <div class="col" style="padding-top:1em;">
-            <table class="table table-hover table-bordered">
-                <thead style="background-color: #c3d1ff;">
-                    <tr style="color:#000">
-                        <th>Hardware Name</th>
-                        <th>Memory</th>
-                        <th>Storage</th>
-                        <th> Network Info </th>
-                        <th>Firmware Version</th>
-                        <th>Power cooling</th>
-                        <th>Cpu Utilization</th>
-                        <th>Memory Usage</th>
-                        <th>Load Avarage </th>
-                        <th> Hyperbisor Details</th>
-                        <th>Ip Address</th>
-                        <th>Mac Address</th>
-                        <th> Routing </th>
-                        <th>DNS Dhp</th>
-                        <th>IDRAC IP</th>
-                        <th>PXE Address</th>
-                        <th>Domain</th>
-                    </tr>
-                </thead>
+            <table class="table table-sm table-bordered custom-table  w-auto">
                 <tbody>
                     <tr>
-                        <td>{{server.hardware_name}}</td>
-                        <td>{{server.memory}}</td>
+                        <th>Hardware Name</th>
+                        <td>{{ server.hardware_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Memory</th>
+                        <td>{{ server.memory }}</td>
+                    </tr>
+                    <tr>
+                        <th>Storage</th>
                         <td>{{ server.storage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Network Info</th>
                         <td>{{ server.network_info }}</td>
-                        <td>{{ server.firmware_version}}</td>
-                        <td>{{server.power_cooling}}</td>
-                        <td>{{server.cpu_utilisation}}</td>
-                        <td>{{server.memory_usage}}</td>
-                        <td>{{server.load_average}}</td>
-                        <td>{{server.hypervisor_details}}</td>
-                        <td>{{server.ip_address}}</td>
-                        <td>{{server.mac_address}}</td>
-                        <td>{{server.routing_tables}}</td>
-                        <td>{{server.dns_dhp}}</td>
-                        <td>{{server.idrac_ip}}</td>
-                        <td>{{server.pxe_address}}</td>
-                        <td>{{server.domain}}</td>
+                    </tr>
+                    <tr>
+                        <th>Firmware Version</th>
+                        <td>{{ server.firmware_version }}</td>
+                    </tr>
+                    <tr>
+                        <th>Power Cooling</th>
+                        <td>{{ server.power_cooling }}</td>
+                    </tr>
+                    <tr>
+                        <th>CPU Utilization</th>
+                        <td>{{ server.cpu_utilisation }}</td>
+                    </tr>
+                    <tr>
+                        <th>Memory Usage</th>
+                        <td>{{ server.memory_usage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Load Average</th>
+                        <td>{{ server.load_average }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hypervisor Details</th>
+                        <td>{{ server.hypervisor_details }}</td>
+                    </tr>
+                    <tr>
+                        <th>IP Address</th>
+                        <td>{{ server.ip_address }}</td>
+                    </tr>
+                    <tr>
+                        <th>MAC Address</th>
+                        <td>{{ server.mac_address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Routing</th>
+                        <td>{{ server.routing_tables }}</td>
+                    </tr>
+                    <tr>
+                        <th>DNS DHP</th>
+                        <td>{{ server.dns_dhp }}</td>
+                    </tr>
+                    <tr>
+                        <th>IDRAC IP</th>
+                        <td>{{ server.idrac_ip }}</td>
+                    </tr>
+                    <tr>
+                        <th>PXE Address</th>
+                        <td>{{ server.pxe_address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Domain</th>
+                        <td>{{ server.domain }}</td>
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
+
+</div>
+</div>
+    
 </div>
 {% endblock %}

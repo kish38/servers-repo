@@ -15,6 +15,48 @@ class ServerType(models.Model):
 class Server(models.Model):
     server_type = models.ForeignKey(ServerType, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    ipv4_address = models.CharField(max_length=255)
+    ipv6_address = models.CharField(max_length=255)
+    idrac_ilo_ip = models.CharField(max_length=255)
+    default_gateway = models.CharField(max_length=255)
+    Dns_server_ip = models.CharField(max_length=255)
+    storage = models.CharField(max_length=255)
+
+    total_cups = models.CharField(max_length=255) 
+    total_Sockets = models.CharField(max_length=255)
+    cores_per_socket = models.CharField(max_length=255)
+    threads_per_core = models.CharField(max_length=255)
+    nics = models.CharField(max_length=255)
+    cpu_average = models.CharField(max_length=255)
+    memory = models.CharField(max_length=255)
+    ip_address = models.CharField(max_length=255)
+
+    hard_drives_name = models.CharField(max_length=255)
+    hard_model = models.CharField(max_length=255)
+    hard_drives_size = models.CharField(max_length=255)
+
+    os_version = models.CharField(max_length=255)
+    kernel_version = models.CharField(max_length=255)
+    uptime = models.CharField(max_length=255)
+    
+    vendor = models.CharField(max_length=255)
+    server_model = models.CharField(max_length=255)
+    cpu_series = models.CharField(max_length=255)
+    bios_version = models.CharField(max_length=255)
+    bios_release = models.CharField(max_length=255)
+    serial_number = models.CharField(max_length=255)
+    att_patch_level = models.CharField(max_length=255)
+    running_vms = models.CharField(max_length=255)
+
+    switch_info = models.JSONField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.hardware_name
+
+
+class Server1(models.Model):
+    server_type = models.ForeignKey(ServerType, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
     hardware_name = models.CharField(max_length=255)
     cpu_model = models.CharField(max_length=255)
     memory = models.CharField(max_length=255)
