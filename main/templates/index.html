@@ -81,8 +81,8 @@
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div
-                                class="card-header bg-gradient-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold " style="color: #fff;">Server Types</h6>
+                                class="card-header  py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold">Server Types</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -98,42 +98,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Card Body -->
+
                             <div class="card-body">
                                 <div class="row">
-                                    <!-- Server Card -->
-                                     {% for stype in server_types %}
-                                    <div class="col-md-3" style="padding-top:1em">
-                                        <div class="card server-card shadow-sm">
-                                            <div class="card-body " style="min-height:200px; background-color: #ffffff;" >
-                                                <a href="/servers?type={{stype.id}}" style="color:#858796;">
-                                                    <h5 class="mt-3" style="color: #000000;"><i class="fas fa-clipboard-list" style="color: #000000;"></i> {{stype.name}}</h5>
-                                                </a>
-                                                <p style="border-bottom: 1px inset;"></p>
-                                                <p class="card-text" style="color: #000000;"><strong>Servers : </strong> <span class="badge badge-primary">{{stype.servers}}</span></p>
-                                                <p class="card-text" style="color: #000000;"><strong>Vms : </strong> <span class="badge badge-info">{{stype.vms}}</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                            
-                                    <!-- Server 2 Card 
-                                    <div class="col-md-3">
-                                        <div class="card server-card shadow">
-                                            <div class="card-body text-center" style="font-size: 0.6em;">
-                                                <i class="fas fa-server server-icon"></i>
-                                                <h5 class="card-title mt-3">TYPE 2</h5>
-                                                <p class="card-text"><strong>IP Address:</strong> 192.168.1.2</p>
-                                                <p class="card-text"><strong>Status:</strong> <span class="text-danger"><i class="fas fa-times-circle status-icon"></i> Offline</span></p>
-                                                <p class="card-text"><strong>CPU Usage:</strong> N/A</p>
-                                                <p class="card-text"><strong>Memory Usage:</strong> N/A</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    -->
-                                    
+                                     <table class="table table-hover table-bordered">
+                                        <thead style="background-color: #c3d1ff;">
+                                            <tr style="color:#000">
+                                                <th>ServerType</th>
+                                                <th># Servers</th>
+                                                <th># VMs</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for stype in server_types %}
+                                            <tr>
+                                                <td>
+                                                    <a href="/servers?type={{stype.id}}" style="color:#858796;text-decoration: underline;">{{stype.name}}</a></td>
+                                                <td>{{stype.servers}}</td>
+                                                <td>{{stype.vms}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>                                    
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
